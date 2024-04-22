@@ -3,6 +3,7 @@ LABEL maintainer="<gokul.edakkepuram@hs.weingarten.de>"
 
 USER root
 ENV DEBAIN_FRONTEND=noninteractive
+SHELL ["/bin/bash", "-c"]
 
 # Set Locale
 RUN apt-get update && apt-get install -y locales && \
@@ -20,6 +21,7 @@ RUN apt-get update && apt-get install -y \
     gnupg2 \
     lsb-release \
     nano \
+    git \
     software-properties-common \
     && add-apt-repository universe \
     && curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg \
@@ -31,4 +33,5 @@ RUN apt-get install ros-humble-desktop-full -y \
     ros-dev-tools
 
 # Source ROS 2
-RUN echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
+RUN echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc \
+    echo "export DISPLAY=unix:1" >> ~/.bashrc
