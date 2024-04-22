@@ -38,3 +38,19 @@ RUN apt-get update && apt-get install -y \
     python3-pytest-repeat \
     python3-pytest-rerunfailures
 
+#Get ROS2 Code
+RUN mkdir -p ~/ros2_humble/src \
+    && cd ~/ros2_humble \
+    && vcs import --input https://raw.githubusercontent.com/ros2/ros2/humble/ros2.repos src
+
+#Install requirements for rosdep
+RUN apt-get update && apt-get install --no-install-recommends -y \
+    qt5-qmake \
+    python3-pytest-timeout
+
+#Install dependencies using rosdep
+RUN apt upgrade -y \
+    && rosdep init \
+    && rosdep fix-permissions \
+    && rosdep update \
+    && rosdep install --from-paths ~/ros2_humble/src --ignore-src -y --skip-keys "fastcdr rti-connext-dds-6.0.1 urdfdom_headers" 
