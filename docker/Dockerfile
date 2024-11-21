@@ -16,7 +16,9 @@ RUN apt update -y && \
     can-utils \
     qtbase5-dev \
     qt5-qmake \
-    qtbase5-dev-tools && \
+    qtbase5-dev-tools \
+    ros-humble-ament-cmake \
+    python3-colcon-common-extensions && \
     rm -rf /var/lib/apt/lists/*
 
 # Copy local packages to be built
@@ -25,8 +27,10 @@ COPY ./src /root/ros2_ws/src
 WORKDIR /root/ros2_ws
 
 # Install dependencies and build
-RUN /bin/bash -c "source /opt/ros/humble/setup.bash"
-RUN /bin/bash -c "colcon build --packages-select odrive_can"
+RUN /bin/bash -c "source /opt/ros/humble/setup.bash && \
+    rosdep update && \
+    rosdep install --from-paths src -y --ignore-src && \
+    colcon build --packages-select odrive_can"
 
 # Source ROS in bashrc
 RUN echo "source /opt/ros/humble/setup.bash" >> /root/.bashrc && \
