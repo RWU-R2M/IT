@@ -1,5 +1,5 @@
 services:
-  picar_humble_raspi:
+  humble_raspi:
     image: ghcr.io/rwu-r2m/ros_raspi:arm64
     platform: linux/arm64/v8
     environment:
