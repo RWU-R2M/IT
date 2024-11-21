@@ -33,4 +33,4 @@ jobs:
         context: .
         file: ./docker/Dockerfile
         push: true
-        tags: ghcr.io/${{ github.repository_owner }}/ros_raspi:${{ github.ref_name }}
+        tags: ghcr.io/rwu-r2m/ros_raspi:${{ github.ref_name }}
