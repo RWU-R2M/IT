@@ -1,4 +1,4 @@
-FROM ros:humble-desktop-full
+FROM osrf/ros:humble-desktop-full
 
 RUN apt update -y && \
     apt install -y \
