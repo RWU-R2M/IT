@@ -12,8 +12,12 @@ services:
         - /tmp/.X11-unix:/tmp/.X11-unix
         - $HOME/.Xauthority:/root/.Xauthority
         - /dev:/dev
+        - ../src:/root/ros2_ws/src  # Single source mount
     devices:
         - /dev/gpiomem:/dev/gpiomem
         - /dev/i2c-1:/dev/i2c-1
         - /dev/can0:/dev/can0
-    command: /bin/bash -c "exec bash"
+    command: >
+      /bin/bash -c "
+        source /opt/ros/humble/setup.bash &&
+        exec bash"
