@@ -1,22 +1,10 @@
-FROM ubuntu:22.04
+FROM arm64v8/ros:humble
 
 # Avoid timezone prompt
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=Etc/UTC
 
-# Install ROS2
-RUN apt update -y && \
-    apt install -y \
-    curl \
-    gnupg2 \
-    lsb-release && \
-    curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add - && \
-    sh -c 'echo "deb [arch=amd64,arm64] http://packages.ros.org/ros2/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros2-latest.list' && \
-    apt update -y && \
-    apt install -y \
-    ros-humble-desktop && \
-    rm -rf /var/lib/apt/lists/*
-
+# Install additional packages
 RUN apt update -y && \
     apt install -y \
     vim \
@@ -29,3 +17,19 @@ RUN apt update -y && \
     python3-smbus \
     can-utils && \
     rm -rf /var/lib/apt/lists/*
+
+# Copy local packages to be built
+COPY ./src /root/ros2_ws/src
+
+WORKDIR /root/ros2_ws
+
+# Install dependencies and build
+RUN /bin/bash -c "source /opt/ros/humble/setup.bash && \
+    rosdep install --from-paths src -y --ignore-src && \
+    colcon build --packages-select odrive_can"
+
+# Source ROS in bashrc
+RUN echo "source /opt/ros/humble/setup.bash" >> /root/.bashrc && \
+    echo "source /root/ros2_ws/install/setup.bash" >> /root/.bashrc
+
+CMD ["bash"]
