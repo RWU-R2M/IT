@@ -13,7 +13,10 @@ RUN apt update -y && \
     inetutils-ping \
     i2c-tools \
     python3-smbus \
-    can-utils && \
+    can-utils \
+    qtbase5-dev \
+    qt5-qmake \
+    qtbase5-dev-tools && \
     rm -rf /var/lib/apt/lists/*
 
 # Copy local packages to be built
