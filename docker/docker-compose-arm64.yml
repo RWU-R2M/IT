@@ -1,7 +1,7 @@
 services:
   humble_raspi:
     image: ghcr.io/rwu-r2m/ros_raspi:arm64
-    platform: linux/arm64/v8
+    platform: linux/arm64
     environment:
         ROS_DOMAIN_ID: 1
         DISPLAY: $DISPLAY
