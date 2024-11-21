@@ -1,18 +1,16 @@
 FROM arm64v8/ros:humble
 
 # Avoid timezone prompt
-ENV DEBIAN_FRONTEND=noninteractive
-ENV TZ=Etc/UTC
+#ENV DEBIAN_FRONTEND=noninteractive
+#ENV TZ=Etc/UTC
 
 # Install additional packages
 RUN apt update -y && \
     apt install -y \
     vim \
-    rviz \
     git \
     net-tools \
     inetutils-ping \
-    ros-humble-gazebo-ros-pkgs \
     i2c-tools \
     python3-smbus \
     can-utils && \
