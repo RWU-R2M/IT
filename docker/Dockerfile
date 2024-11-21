@@ -18,8 +18,8 @@ RUN apt update -y && \
     qt5-qmake \
     qtbase5-dev-tools \
     ros-humble-ament-cmake \
-    python3-colcon-common-extensions && \
-    rm -rf /var/lib/apt/lists/*
+    python3-colcon-common-extensions
+    # rm -rf /var/lib/apt/lists/*
 
 # Copy local packages to be built
 COPY ./src /root/ros2_ws/src
