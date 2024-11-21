@@ -1,0 +1,21 @@
+version: '2.4'
+services:
+  picar_humble_intel:
+    image: ghcr.io/ # Make sure to use correct branch tag!!!
+    environment:
+        ROS_DOMAIN_ID: 1
+        DISPLAY: $DISPLAY
+        QT_X11_NO_MITSHM: '1'
+    network_mode: host
+    stdin_open: true
+    privileged: true
+    volumes:
+        - /tmp/.X11-unix:/tmp/.X11-unix
+        - $HOME/.Xauthority:/root/.Xauthority
+        - ../src:/root/ros2_ws/src
+        - ../test_pkgs:/root/ros2_ws/src/test_pkgs
+
+    command: >
+      /bin/bash -c "
+        cp -rn /root/src/* /root/ros2_ws/src/ 2>/dev/null || true && 
+        exec bash"
