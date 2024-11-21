@@ -1,6 +1,7 @@
 services:
   picar_humble_raspi:
-    image: ghcr.io/rwu-r2m/ros_raspi:arm64  # Use arm64 tag for Raspberry Pi 5
+    image: ghcr.io/rwu-r2m/ros_raspi:arm64
+    platform: linux/arm64  # Add platform specification
     environment:
         ROS_DOMAIN_ID: 1
         DISPLAY: $DISPLAY
@@ -10,9 +11,9 @@ services:
     volumes:
         - /tmp/.X11-unix:/tmp/.X11-unix
         - $HOME/.Xauthority:/root/.Xauthority
-        - /dev:/dev  # Give access to hardware devices
+        - /dev:/dev
     devices:
-        - /dev/gpiomem:/dev/gpiomem  # GPIO access
-        - /dev/i2c-1:/dev/i2c-1      # I2C access
-        - /dev/can0:/dev/can0        # CAN bus access
+        - /dev/gpiomem:/dev/gpiomem
+        - /dev/i2c-1:/dev/i2c-1
+        - /dev/can0:/dev/can0
     command: /bin/bash -c "exec bash"
