@@ -1,4 +1,8 @@
-FROM osrf/ros:humble-desktop-full
+# Use multi-arch ROS image
+FROM --platform=$TARGETPLATFORM osrf/ros:humble-desktop-full
+
+ARG TARGETPLATFORM
+ARG BUILDPLATFORM
 
 RUN apt update -y && \
     apt install -y \
