@@ -1,6 +1,18 @@
 FROM ubuntu:22.04
 
-
+# Install ROS2
+RUN apt update -y && \
+    apt install -y \
+    curl \
+    gnupg2 \
+    lsb-release && \
+    curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add - && \
+    sh -c 'echo "deb [arch=amd64,arm64] http://packages.ros.org/ros2/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros2-latest.list' && \
+    apt update -y && \
+    apt install -y \
+    ros-humble-desktop && \
+    rm -rf /var/lib/apt/lists/*
+    
 RUN apt update -y && \
     apt install -y \
     vim \
