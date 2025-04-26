@@ -14,6 +14,7 @@ RUN apt-get update \
     ros-${ROS_DISTRO}-control-msgs \
     ros-${ROS_DISTRO}-realtime-tools \
     ros-${ROS_DISTRO}-hardware-interface \
+    ros-${ROS_DISTRO}-hardware-interface-testing \
     ros-${ROS_DISTRO}-ament-cmake \
     python3-colcon-common-extensions \
     qtbase5-dev \
