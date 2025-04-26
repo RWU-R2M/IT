@@ -1,6 +1,6 @@
-FROM ros:humble
+FROM ros:jazzy
 
-ARG ROS_DISTRO=humble
+ARG ROS_DISTRO=jazzy
 ARG ROS_WS=/root/ros2_ws
 
 ENV ROS_DISTRO=${ROS_DISTRO}
