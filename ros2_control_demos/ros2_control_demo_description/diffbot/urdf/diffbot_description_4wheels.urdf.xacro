@@ -1,20 +1,18 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-  <xacro:macro name="diffbot" params="prefix">
+  <xacro:macro name="diffbot_4wheels" params="prefix">
 
   <!-- Constants for robot dimensions -->
   <xacro:property name="PI" value="3.1415926535897931"/>
   <xacro:property name="base_mass" value="0.3" /> <!-- arbitrary value for base mass -->
   <xacro:property name="base_width" value="0.1" />
-  <xacro:property name="base_length" value="0.3" /> <!-- Increased length to accommodate 4 wheels -->
+  <xacro:property name="base_length" value="0.3" /> <!-- Increased length for 4-wheeled model -->
   <xacro:property name="base_height" value="0.05" />
   <xacro:property name="wheel_mass" value="0.3" /> <!-- arbitrary value for wheel mass -->
   <xacro:property name="wheel_len" value="0.020" />
   <xacro:property name="wheel_radius" value="0.015" />
   <xacro:property name="wheel_separation_x" value="0.2" /> <!-- Separation between front and rear wheels -->
-  <xacro:property name="caster_wheel_mass" value="0.1" /> <!-- arbitrary value for caster wheel mass -->
-  <xacro:property name="caster_wheel_radius" value="0.015" />
   <xacro:property name="z_offset" value="-${base_height/2}" /> <!-- Space btw top of beam and the each joint -->
 
   <!-- Base Link -->
@@ -44,7 +42,7 @@
       </inertial>
     </link>
 
-    <!-- Front left wheel -->
+    <!-- Front Left Wheel -->
     <joint name="${prefix}front_left_wheel_joint" type="continuous">
       <parent link="${prefix}base_link"/>
       <child link="${prefix}front_left_wheel"/>
@@ -79,12 +77,12 @@
           izz="${wheel_mass / 2.0 * wheel_radius*wheel_radius}"/>
         </inertial>
       </link>
-
-    <!-- Rear left wheel -->
+      
+    <!-- Rear Left Wheel -->
     <joint name="${prefix}rear_left_wheel_joint" type="continuous">
       <parent link="${prefix}base_link"/>
       <child link="${prefix}rear_left_wheel"/>
-      <origin xyz="${-wheel_separation_x/2} -${base_width/2} ${z_offset}" rpy="0 0 0"/>
+      <origin xyz="-${wheel_separation_x/2} -${base_width/2} ${z_offset}" rpy="0 0 0"/>
       <axis xyz="0 1 0"/>
       <dynamics damping="0.2"/>
       <limit effort="100" velocity="1.0"/>
@@ -116,7 +114,7 @@
         </inertial>
       </link>
 
-    <!-- Front right wheel -->
+    <!-- Front Right Wheel -->
     <joint name="${prefix}front_right_wheel_joint" type="continuous">
       <parent link="${prefix}base_link"/>
       <child link="${prefix}front_right_wheel"/>
@@ -152,11 +150,11 @@
         </inertial>
       </link>
 
-    <!-- Rear right wheel -->
+    <!-- Rear Right Wheel -->
     <joint name="${prefix}rear_right_wheel_joint" type="continuous">
       <parent link="${prefix}base_link"/>
       <child link="${prefix}rear_right_wheel"/>
-      <origin xyz="${-wheel_separation_x/2} ${base_width/2} ${z_offset}" rpy="0 0 0"/>
+      <origin xyz="-${wheel_separation_x/2} ${base_width/2} ${z_offset}" rpy="0 0 0"/>
       <axis xyz="0 1 0"/>
       <dynamics damping="0.2"/>
       <limit effort="100" velocity="1.0"/>
